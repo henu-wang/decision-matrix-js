@@ -1,0 +1,37 @@
+{
+  "name": "decision-matrix-js",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript library for building weighted decision matrices. Evaluate options systematically using customizable criteria and weights.",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "keywords": [
+    "decision",
+    "matrix",
+    "decision-making",
+    "weighted-scoring",
+    "mental-models",
+    "evaluation",
+    "comparison",
+    "analysis",
+    "framework",
+    "productivity"
+  ],
+  "author": "KeepRule Team",
+  "license": "MIT",
+  "homepage": "https://github.com/henu-wang/decision-matrix-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henu-wang/decision-matrix-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/henu-wang/decision-matrix-js/issues"
+  }
+}
