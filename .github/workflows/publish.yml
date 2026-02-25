@@ -1,12 +1,9 @@
 name: Publish Package
-
 on:
   workflow_dispatch:
-
 permissions:
   contents: read
   packages: write
-
 jobs:
   publish-gpr:
     runs-on: ubuntu-latest
@@ -17,30 +14,12 @@ jobs:
           node-version: '20'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@henu-wang'
-      - name: Update package name for GitHub Packages
+      - name: Update package name
         run: |
-          node -e "
-          const pkg = require('./package.json');
-          pkg.name = '@henu-wang/decision-matrix-js';
-          pkg.publishConfig = {registry: 'https://npm.pkg.github.com'};
-          require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '
-');
-          "
+          sed -i 's/"name": "decision-matrix-js"/"name": "@henu-wang\/decision-matrix-js"/' package.json
+          echo '{"publishConfig":{"registry":"https://npm.pkg.github.com"}}' > /tmp/pc.json
+          node -e "const p=require('./package.json');p.publishConfig={registry:'https://npm.pkg.github.com'};require('fs').writeFileSync('package.json',JSON.stringify(p,null,2));"
       - name: Publish to GitHub Packages
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-  publish-npm:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Publish to npmjs
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        continue-on-error: true
